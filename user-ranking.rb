@@ -66,5 +66,6 @@ end
 
 # Write output to yaml file
 File.open("data/groups-" + Date.today.prev_month.strftime + ".yml" , "w") { |file| file.write(lookup.sort.to_yaml) }
+File.open("data/groups.yml" , "w") { |file| file.write(lookup.sort.to_yaml) }
 File.open("data/users-" + Date.today.prev_month.strftime + ".yml" , "w") { |file| file.write(users.sort.to_yaml) }
 File.open("data/users-per-group-" + Date.today.prev_month.strftime + ".yml" , "w") { |file| file.write(userCounts.sort.to_yaml) }

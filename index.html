@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Bar Chart</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.13.1/js-yaml.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" type="css/stylesheet">
+	<style>
+        #container {
+                margin: auto;
+        }
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+</head>
+
+<body>
+	<div id="container" style="width: 75%;">
+		<canvas id="bar-chart"></canvas>
+	</div>
+<script>
+
+function generateColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+var client = new XMLHttpRequest();
+client.open('GET', 'data/groups.yml');
+client.onreadystatechange = function() {
+
+  const doc = jsyaml.load(client.responseText);
+  console.log(doc);
+
+  var labels = []
+  var counts = []
+  var colors = []
+
+  // Make a list of labels and counts
+  $.each(doc, function(e, entry){
+     labels.push(entry[0])
+     counts.push(entry[1])
+     colors.push(generateColor())
+  })
+
+  new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Counts (posts and replies)",
+          backgroundColor: colors,
+          data: counts
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Ask Cyberinfrastructure Contributions by Group'
+      }
+    }
+});
+
+}
+client.send();
+
+	</script>
+</body>
+
+</html>
+
