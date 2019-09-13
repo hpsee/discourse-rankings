@@ -11,6 +11,7 @@ What does this mean?
  - data is saved to file (yaml)
 
 That's it! If you want to customize this functionality, feel free to edit the script.
+See the example plot of the group counts at [https://hpsee.github.io/discourse-rankings/](https://hpsee.github.io/discourse-rankings/).
 
 ## Setup
 
@@ -53,7 +54,11 @@ The output folder will have a set of data files, each with a sorted list of user
 or groups, with contributions from the last month.
 
 ```bash
-
+data/
+├── groups-2019-08-13.yml
+├── groups.yml
+├── users-2019-08-13.yml
+└── users-per-group-2019-08-13.yml
 ```
 
 ## Docker
